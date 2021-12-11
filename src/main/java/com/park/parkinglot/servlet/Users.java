@@ -4,7 +4,7 @@
  */
 package com.park.parkinglot.servlet;
 
-import cokm.park.parkinglot.ejb.UserBean;
+import com.park.parkinglot.ejb.UserBean;
 import com.park.parkinglot.common.UserDetails;
 import java.io.IOException;
 import java.io.PrintWriter;

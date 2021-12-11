@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
  */
-package cokm.park.parkinglot.ejb;
+package com.park.parkinglot.ejb;
 
 import com.park.parkinglot.common.CarDetails;
 import com.park.parkinglot.entity.Car;
@@ -31,7 +31,7 @@ public class CarBean {
     private EntityManager em;
     
     
-    public void updateCar(Integer carId, String licensePlate, Strng parkingSpot, Integer userId)
+    public void updateCar(Integer carId, String licensePlate, String parkingSpot, Integer userId)
     {
         LOG.info("updateCar");
         Car car = em.find(Car.class, carId);

@@ -4,7 +4,7 @@
  */
 package com.park.parkinglot.servlet;
 
-import cokm.park.parkinglot.ejb.CarBean;
+import com.park.parkinglot.ejb.CarBean;
 import com.park.parkinglot.common.CarDetails;
 import java.io.IOException;
 import java.io.PrintWriter;

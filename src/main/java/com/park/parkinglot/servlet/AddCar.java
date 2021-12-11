@@ -1,11 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.park.parkinglot.servlet;
 
-import cokm.park.parkinglot.ejb.CarBean;
-import cokm.park.parkinglot.ejb.UserBean;
+import com.park.parkinglot.ejb.CarBean;
+import com.park.parkinglot.ejb.UserBean;
 import com.park.parkinglot.common.UserDetails;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author a
- */
+
 @WebServlet(name = "AddCar", urlPatterns = {"/AddCar"})
 public class AddCar extends HttpServlet {
-    
     @Inject
     UserBean userBean;
     
@@ -70,7 +67,8 @@ public class AddCar extends HttpServlet {
             throws ServletException, IOException {
         List<UserDetails> users = userBean.getAllUsers();
         request.setAttribute("users", users);
-        request.getRequestDispatcher("WEB-INF/pages/addCar.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/addCar.jsp").forward(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -84,12 +82,13 @@ public class AddCar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String licensePlate = request.getParameter("license_plate");
-        String parkingSpot = request.getParameter("parking_spot");
-        Integer ownerId = Integer.parseInt(request.getParameter("owner_id"));
+        String licensePlate=request.getParameter("license_plate");
+        String parkingSpot=request.getParameter("parking_spot");
+        int ownerId = Integer.parseInt(request.getParameter("owner_id"));
         
-        carBean.createCar(licensePlate, parkingSpot, ownerId);  
+        carBean.createCar(licensePlate, parkingSpot, ownerId);
         response.sendRedirect(request.getContextPath() + "/Cars");
+        
     }
 
     /**
