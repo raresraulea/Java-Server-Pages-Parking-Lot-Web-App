@@ -6,7 +6,7 @@
     <h1>Welcome to the Cars page!</h1>
     <form method="POST" action="${pageContext.request.contextPath}/Cars">
         <button style="margin-bottom: 10px" class="btn btn-primary btn-lg" type="button">
-            <a style="color:white; text-decoration: none;" href="${pageContext.request.contextPath}/AddCar">
+            <a style="color:white; text-decoration: none;" href="${pageContext.request.contextPath}/Cars/Create">
                 Add Car
             </a>
         </button>
@@ -18,9 +18,9 @@
                 </div>
                 <div class="col-md-3">${car.getLicensePlate()}</div>
                 <div class="col-md-3">${car.getParkingSpot()}</div>
-                <div class="col-md-3">${car.getUsername()}s</div>
+                <div class="col-md-3">${car.getUsername()}</div>
                 <div class="col-md-2">
-                    <a href="${pageContext.request.contextPath}/EditCar?id=${car.id}" class="btn btn-secondary" role="button">Edit Car</a>
+                    <a href="${pageContext.request.contextPath}/Cars/Update?id=${car.id}" class="btn btn-secondary" role="button">Edit Car</a>
                 </div>
             </div>
         </c:forEach>

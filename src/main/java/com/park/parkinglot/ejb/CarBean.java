@@ -31,22 +31,20 @@ public class CarBean {
     private EntityManager em;
     
     
-    public void updateCar(Integer carId, String licensePlate, String parkingSpot, Integer userId)
-    {
-        LOG.info("updateCar");
-        Car car = em.find(Car.class, carId);
-        car.setLicensePlate(licensePlate);
-        car.setParkingSpot(parkingSpot);
-        
-        User oldUser = car.getUser();
-        oldUser.getCars().remove(car);
-        
-        User user = em.find(User.class, userId);
-        user.getCars().add(car);
-        car.setUser(user);
-        
-    }
-    
+     public void updateCar(Integer carId, String licensePlate, String parkingSpot, Integer userId) {
+       LOG.info("updateCar");
+       Car car = em.find(Car.class, carId);
+       car.setLicensePlate(licensePlate);
+       car.setParkingSpot(parkingSpot);
+       
+       User oldUser = car.getUser();
+       oldUser.getCars().remove(car);
+       
+       User user = em.find(User.class, userId);
+       user.getCars().add(car);
+       car.setUser(user);
+    } 
+   
     public CarDetails findById(Integer carId) {
         LOG.info("findCarById");
         
