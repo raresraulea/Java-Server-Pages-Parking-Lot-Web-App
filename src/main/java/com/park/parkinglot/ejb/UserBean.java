@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.park.parkinglot.ejb;
 
@@ -12,8 +13,10 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.New;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -23,9 +26,37 @@ import javax.persistence.PersistenceContext;
 public class UserBean {
 
     private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
-
+    
     @PersistenceContext
     private EntityManager em;
+    
+    public List<UserDetails> getAllUsers(){
+        LOG.info("getAllUsers");
+        try{
+            Query query= em.createQuery("SELECT u FROM User u");
+            return copyUsersToDetails((List<User>)query.getResultList());
+        }
+        catch (Exception ex){
+            throw new EJBException(ex);
+        }
+    }
+
+    public Collection<String> findUsername(Collection<Integer> userIds) {
+        LOG.info("findUsernames");
+        List<String> usernames = (List<String>) em.createQuery("SELECT u.username FROM User u WHERE u.id IN ?1")
+                .setParameter(1, userIds)
+                .getResultList();
+        return usernames;
+    }
+    
+    private List<UserDetails> copyUsersToDetails(List<User> users) {
+        List<UserDetails> detailsList = new ArrayList<>();
+        for(User user:users){
+            UserDetails userDetails = new UserDetails(user.getId(),user.getUsername(),user.getEmail(),user.getPosition());
+            detailsList.add(userDetails);
+        }
+        return detailsList;
+    }
     
     public void createUser(String username, String email, String passwordSha256, String position)
     {
@@ -37,41 +68,4 @@ public class UserBean {
         user.setPosition(position);
         em.persist(user);
     }
-    
-    public List<UserDetails> getAllUsers() {
-        LOG.info("getAllUsers");
-        
-        try {
-            List<User> users = (List<User>) em.createQuery("SELECT c FROM User c").getResultList();
-            return copyUsersToDetails(users);
-        } catch (Exception ex) {
-            throw new EJBException(ex);
-        }
-    }
-    
-    private List<UserDetails> copyUsersToDetails(List<User> users) {
-        List<UserDetails> detailsList = new ArrayList<>();
-        for(User user : users) {
-            UserDetails userDetails = new UserDetails(
-                    user.getId(),
-                    user.getUsername(),
-                    user.getEmail(),
-                    user.getPosition()
-            );
-            detailsList.add(userDetails);
-        }
-        
-        return detailsList;
-    }
-    
-    public Collection<String> findUsernames(Collection<Integer> userIds){
-        LOG.info("findUsernames");
-        
-        List<String> usernames = (List<String>) em.createQuery("SELECT u.username FROM User u WHERE u.id IN ?1")
-                .setParameter(1, userIds)
-                .getResultList();
-        return usernames;
-    }
-    
-    
 }

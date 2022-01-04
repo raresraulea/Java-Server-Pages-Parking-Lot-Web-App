@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatefulEjbClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.park.parkinglot.ejb;
 
@@ -17,12 +18,12 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class InvoiceBean {
 
-    private Set<Integer> userIds = new HashSet<Integer>();
-
+    private Set<Integer> userIds = new HashSet<>();
+    
     public Set<Integer> getUserIds(){
         return userIds;
     }
-
+    
     public void setUserIds(Set<Integer> userIds){
         this.userIds = userIds;
     }
